@@ -3,7 +3,7 @@
 <title>Static Call Graph - [Hero_Gimbal_V1\Hero_Gimbal_V1.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image Hero_Gimbal_V1\Hero_Gimbal_V1.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Mar 28 20:07:30 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Sat May 30 23:41:36 2020
 <BR><P>
 <H3>Maximum Stack Usage =        200 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -411,9 +411,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[7e]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
+<BR><BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_MspInit
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 </UL>
 
 <P><STRONG><a name="[ef]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
@@ -520,10 +520,10 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(RESET)
 </UL>
 <P><STRONG><a name="[ad]"></a>Error_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, main.o(i.Error_Handler))
-<BR><BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
+<BR><BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_UART5_Init
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_CAN2_Init
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_CAN1_Init
 </UL>
@@ -695,10 +695,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[7d]"></a>HAL_GetTick</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_hal.o(i.HAL_GetTick))
-<BR><BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Init
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_Init
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Init
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_Init
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_Start
 </UL>
 
@@ -741,8 +741,8 @@ Global Symbols
 <P><STRONG><a name="[81]"></a>HAL_NVIC_EnableIRQ</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ))
 <BR><BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_MspInit
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_DMA_Init
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_MspInit
 </UL>
 
 <P><STRONG><a name="[80]"></a>HAL_NVIC_SetPriority</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, stm32f4xx_hal_cortex.o(i.HAL_NVIC_SetPriority))
@@ -753,8 +753,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_MspInit
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_MspInit
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_DMA_Init
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_MspInit
 </UL>
 
 <P><STRONG><a name="[8d]"></a>HAL_NVIC_SetPriorityGrouping</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_hal_cortex.o(i.HAL_NVIC_SetPriorityGrouping))
@@ -1109,16 +1109,16 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hw_init
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_UART5_Init
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_FREERTOS_Init
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_DMA_Init
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_CAN2_Init
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_CAN1_Init
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>

@@ -1,3 +1,13 @@
+/* 
+ * gimbal_task.c-云台的控制文件
+ * NOTE: This file is based on HAL library of stm32 platform
+ *
+ * Copyright (c) 2020-, FOSH Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Change Logs:None
+ */
 #include "string.h"
 #include "stdlib.h"
 #include "gimbal_task.h"
@@ -11,6 +21,13 @@ struct gimbal sgimbal;//他的目的就是为了得到下面那个指针
 gimbal_t pgimbal = &sgimbal;
 float pit_delta, yaw_delta;		//两轴角度增量
 
+/**
+    * @brief  用于云台和PID的初始化
+    * @note   None
+    * @author 钟午杰
+    * @param  云台结构体 pgimbal
+    * @retval None
+    */
 void gimbal_init(gimbal_t pgimbal)
 {
 	pgimbal->gimbal_init.step=GIMBAL_CALI_START_STEP;
@@ -28,6 +45,13 @@ void gimbal_init(gimbal_t pgimbal)
 	pgimbal->encoder_target_angle.yaw = 0; 	
 }
 
+/**
+    * @brief  用于云台的控制
+    * @note   sw2为up,云台由遥控控制,sw2为down,云台由PC控制
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void gimbal_task(void const * argument)  //云台任务
 {
 	uint32_t period = osKernelSysTick();
@@ -53,6 +77,13 @@ void gimbal_task(void const * argument)  //云台任务
 	}			
 }
 
+/**
+    * @brief  用于云台的PID控制
+    * @note   Yaw和Pitch均是位置环
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void gimbal_control(gimbal_t pgimbal)
 {
 	   int id_range=0;

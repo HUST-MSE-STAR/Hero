@@ -1,3 +1,12 @@
+/* 
+ * bsp_referee.c - 用于裁判系统的解析
+ *
+ * Copyright (c) 2020-, FOSH Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Change Logs:None
+ */
 #include "bsp_referee.h"
 #include "bsp_dbus.h"
 static const uint8_t ref_crc8_init = 0xff;
@@ -58,6 +67,13 @@ static const uint16_t ref_crc16_tab[256] =
 };
 
 uint8_t 	REFEREE_buf[REFEREE_BUFLEN];
+/**
+    * @brief  用于解析裁判系统通信协议
+    * @note   将解析后的内容储存到referee_data_buff中
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void referee_unpack_fifo_data(void)
 {
   uint8_t byte = 0;

@@ -1,3 +1,12 @@
+/* 
+ * chassis_task.c-通信相关文件
+ * NOTE: 包括串口通信解析以及与云台控制板的通信
+ *
+ * Copyright (c) 2020-, FOSH Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * C*/
 #include "communication_task.h"
 #include "bsp_dbus.h"
 #include "init.h"
@@ -9,7 +18,13 @@
 Gimbal_State gimbal_state;
 uint8_t   x=1;
 
-
+/**
+    * @brief  用于裁判系统的通信解析
+    * @note   None
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void Communication_To_Referee_Task(void const * argument)//与裁判系统进行通信
 {	
 	uint32_t period = osKernelSysTick();
@@ -23,7 +38,14 @@ void Communication_To_Referee_Task(void const * argument)//与裁判系统进行通信
 	}
 }
 
-void Communication_To_Gimbal_Task(void const * argument)//与云台通信,暂时没用
+/**
+    * @brief  用于和云台的通信
+    * @note   None
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
+void Communication_To_Gimbal_Task(void const * argument)//与云台通信
 {
 	uint32_t period = osKernelSysTick();
 	while(1)

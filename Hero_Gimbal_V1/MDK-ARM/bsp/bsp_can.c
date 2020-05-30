@@ -1,3 +1,13 @@
+/* 
+ * bsp_can.c-can通信相关文件
+ * NOTE: This file is based on HAL library of stm32 platform
+ *       包括can初始化,can接收和can发送
+ * Copyright (c) 2020-, FOSH Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Change Logs:None
+ */
 #include "bsp_can.h"
 #include <string.h>
 #include "bsp_dbus.h"
@@ -8,6 +18,13 @@ moto_info_t motor_info[6];//其实只有5个电机
 moto_info_t last_motor_info[6];
 _Bool id_range;
 uint8_t        protocol_packet[REF_PROTOCOL_FRAME_MAX_SIZE];//裁判系统的数据
+/**
+    * @brief  用于can通信初始化
+    * @note   None
+    * @author 周森
+    * @param  None
+    * @retval None
+    */
 void can_user_init(CAN_HandleTypeDef* hcan )
 {
   CAN_FilterTypeDef  can_filter;
@@ -27,6 +44,13 @@ void can_user_init(CAN_HandleTypeDef* hcan )
   HAL_CAN_ActivateNotification(hcan, CAN_IT_RX_FIFO0_MSG_PENDING); // enable can rx interrupt
 }
 
+/**
+    * @brief  用于can接收中断
+    * @note   None
+    * @author 周森V(1),钟午杰V(2)
+    * @param  hcan
+    * @retval None
+    */
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
   CAN_RxHeaderTypeDef rx_header;
@@ -86,6 +110,13 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 	}
 }
 
+/**
+    * @brief  用于设置电机的电流
+    * @note   id_range用于区分是前4个(0x200)还是后4个电机(0x1ff)
+    * @author 周森V(1),钟午杰V(2)
+    * @param  id_range(0/1),四个电机编号:v1,v2,v3,v4
+    * @retval None
+    */
 void set_motor_voltage(_Bool id_range,int16_t v1, int16_t v2, int16_t v3, int16_t v4)
 {
   CAN_TxHeaderTypeDef tx_header;

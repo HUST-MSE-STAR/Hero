@@ -1,4 +1,4 @@
-hero_gimbal_v1\main.o: ../Src/main.c
+hero_gimbal_v1\main.o: main.c
 hero_gimbal_v1\main.o: ../Inc/main.h
 hero_gimbal_v1\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 hero_gimbal_v1\main.o: ../Inc/stm32f4xx_hal_conf.h
