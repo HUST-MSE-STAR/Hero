@@ -1,3 +1,13 @@
+/* 
+ * init.c-发射控制文件
+ * NOTE: This file is based on HAL library of stm32 platform
+ *       发射部分是2个3508电机，一个2006电机
+ * Copyright (c) 2020-, FOSH Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Change Logs:None
+ */
 #include "bsp_can.h"
 #include "pid.h"
 #include "bsp_dbus.h"
@@ -12,6 +22,13 @@ int32_t shoot_cnt = 0,first_angle=0;
 pid_struct_t shoot_pid[3];
 int8_t shoot_begin=0,shoot_once=0,shoot_continue=0;
 uint32_t shoot_mode_check=0;
+/**
+    * @brief  发射部分电机PID初始化
+    * @note   None
+    * @author 钟午杰
+    * @param  pshoot结构体
+    * @retval None
+    */
 void shoot_init(shoot_t pshoot)//三个电机的速度环
 {
 	pid_init(&(shoot_pid[0]),    	10,  0, 0,	3000, 	10000);  //摩擦轮
@@ -28,6 +45,13 @@ void shoot_init(shoot_t pshoot)//三个电机的速度环
 
 }
 
+/**
+    * @brief  发射控制
+    * @note   None
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void shoot_task(void const * argument)
 {
 	uint32_t period = osKernelSysTick();
@@ -52,6 +76,13 @@ void shoot_task(void const * argument)
 	}
 }
 
+/**
+    * @brief  发射PID控制
+    * @note   速度环
+    * @author 钟午杰
+    * @param  发射结构体pshoot
+    * @retval None
+    */
 void shoot_control(shoot_t pshoot) 
 {
 	int id_range=1;//3508或2006的电机

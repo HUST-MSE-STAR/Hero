@@ -1,37 +1,21 @@
-/******************************************************************************
-/// @brief
-/// @copyright Copyright (c) 2017 <dji-innovations, Corp. RM Dept.>
-/// @license MIT License
-/// Permission is hereby granted, free of charge, to any person obtaining a copy
-/// of this software and associated documentation files (the "Software"), to deal
-/// in the Software without restriction,including without limitation the rights
-/// to use, copy, modify, merge, publish, distribute, sublicense,and/or sell
-/// copies of the Software, and to permit persons to whom the Software is furnished
-/// to do so,subject to the following conditions:
-///
-/// The above copyright notice and this permission notice shall be included in
-/// all copies or substantial portions of the Software.
-///
-/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-/// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE.
-*******************************************************************************/
+
 /**
-  ******************************************************************************
-  * @file			pid.c
-  * @version		V1.0.0
-  * @date			2016年11月11日17:21:36
-  * @brief   		对于PID， 反馈/测量习惯性叫get/measure/real/fdb,
-						  期望输入一般叫set/target/ref
-  *******************************************************************************/
+  * file			pid.c
+  * version		V1.0.0
+  * date			2016年11月11日17:21:36
+  * brief   		对于PID， 反馈/测量习惯性叫get/measure/real/fdb,
+						  期望输入一般叫set/target/ref*/
  #include "pid.h"
  
  pid_struct_t motor_pid[4];
  
+/**
+    * @brief  用于PID的初始化
+    * @note   在PID初始化的时候调用
+    * @author 周森V(1),钟午杰V(2)
+    * @param  pid结构体,kp:比例项,ki:积分项,kd:微分项,i_max:积分最大值,out_max:输出最大值
+    * @retval None
+    */ 
 void pid_init(pid_struct_t *pid,
               float kp,
               float ki,
@@ -46,6 +30,13 @@ void pid_init(pid_struct_t *pid,
   pid->out_max = out_max;
 }
 
+/**
+    * @brief  用于PID的调用
+    * @note   在位置环或速度环的时候调用
+    * @author 周森V(1),钟午杰V(2)
+	* @param  *pid:pid结构体,ref:期望值,fdb:反馈值
+    * @retval PID的输出
+    */
 float pid_calc(pid_struct_t *pid, float ref, float fdb)
 {
   pid->ref = ref;

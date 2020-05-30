@@ -1,4 +1,4 @@
-hero_chassis_v1\main.o: ../Src/main.c
+hero_chassis_v1\main.o: main.c
 hero_chassis_v1\main.o: ../Inc/main.h
 hero_chassis_v1\main.o: ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h
 hero_chassis_v1\main.o: ../Inc/stm32f3xx_hal_conf.h

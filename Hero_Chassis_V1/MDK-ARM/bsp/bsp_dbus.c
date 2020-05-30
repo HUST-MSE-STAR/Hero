@@ -1,3 +1,13 @@
+/* 
+ * bsp_dbus.c-dbus通信相关文件
+ * NOTE: This file is based on HAL library of stm32 platform
+ *       主要是debus通信协议的解析
+ * Copyright (c) 2020-, FOSH Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Change Logs:None
+ */
 #include "string.h"
 #include "stdlib.h"
 #include "bsp_dbus.h"

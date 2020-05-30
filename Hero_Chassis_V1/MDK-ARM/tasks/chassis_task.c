@@ -1,3 +1,12 @@
+/* 
+ * chassis_task.c-µ×ÅÌ¿ØÖÆÎÄ¼ş
+ * NOTE: This file is based on HAL library of stm32 platform
+ *
+ * Copyright (c) 2020-, FOSH Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * C*/
 #include "chassis_task.h"
 #include "bsp_can.h"
 #include "pid.h"
@@ -11,6 +20,13 @@ pid_struct_t chassis_motor_pid[4];
 float vx, vy, wz;		//µ×ÅÌËÙ¶È
 float location_vx,location_vy;//Ïà¶ÔÔ­×ø±êÏµµÄËÙ¶È
 
+/**
+    * @brief  ÓÃÓÚµ×ÅÌµÄ³õÊ¼»¯ºÍPID²ÎÊıµÄÈ·¶¨
+    * @note   None
+    * @author ÖÜÉ­V(1),ÖÓÎç½ÜV(2)
+    * @param  None
+    * @retval None
+    */
 void chassis_init(void)//³õÊ¼»¯ ËÙ¶È ¼ÓËÙ¶È Î»ÖÃ ËÄÂÖPID
 {
 	
@@ -37,22 +53,29 @@ void chassis_init(void)//³õÊ¼»¯ ËÙ¶È ¼ÓËÙ¶È Î»ÖÃ ËÄÂÖPID
 
 }	
 
+/**
+    * @brief  ÓÃÓÚµ×ÅÌµÄÔË¶¯¿ØÖÆ
+    * @note   S2ÎªUPÓÉ¼üÅÌ¿ØÖÆ,S2ÎªMIDÓÉÒ£¿Ø¿ØÖÆ,S2ÎªDOWN¿ªÆôĞ¡ÍÓÂİ
+    * @author ÖÓÎç½Ü
+    * @param  None
+    * @retval None
+    */
 void chassis_task(void const * argument)
 {
 	uint32_t period = osKernelSysTick();
 	chassis_init();
 	dbus_uart_init();
-  float degree;
+  float degree=0;
 	while(1)
 	{		
-      if (rc_device_get_state(&rc, RC_S2_UP))				//Èôsw2ÎªUP£¬µ×ÅÌ¸úËæÔÆÌ¨£¬ËÙ¶ÈÓÉÒ£¿ØÆ÷ch1-2¿ØÖÆ£¬½ÇËÙ¶ÈPIDÓÉfollow_relative_angle¾ö¶¨
+      if (rc_device_get_state(&rc, RC_S2_MID))				//Èôsw2ÎªMID£¬µ×ÅÌ¸úËæÔÆÌ¨£¬ËÙ¶ÈÓÉÒ£¿ØÆ÷ch1-2¿ØÖÆ£¬½ÇËÙ¶ÈPIDÓÉfollow_relative_angle¾ö¶¨
       {//Ïàµ±ÓÚÓÒÒ¡¸ËµÄÁ½¸öÍ¨µÀ¿ØÖÆx,y
 				//(1684-364)/2
         vx = (float)rc.ch2 / 660 *MAX_CHASSIS_VX_SPEED;   //ch2¿ØÖÆx·½ÏòËÙ¶È
         vy = (float)rc.ch1 / 660 *MAX_CHASSIS_VX_SPEED;   //ch1¿ØÖÆy·½ÏòËÙ¶È
         wz =-(float)rc.wheel/ 660 *MAX_CHASSIS_VW_SPEED;	//follow_relative_angle¸üĞÂÓÚgimbal_info_rcv				
       }//½ÇËÙ¶ÈÓ¦¸ÃÊÇÓÉÔÆÌ¨µÄ°å×Ó¿ØÖÆ
-      if (rc_device_get_state(&rc, RC_S2_MID))			//ÈôS2ÔÚÖĞ¼ä,ÔòÓÉ¼üÅÌ¿ØÖÆ
+      if (rc_device_get_state(&rc, RC_S2_UP))			//ÈôS2ÔÚÉÏ·½,ÔòÓÉ¼üÅÌ¿ØÖÆ
       {
 				if(rc_device_get_key_press(&rc, KEY_PRESSED_W))
         vx = MAX_CHASSIS_VX_SPEED;
@@ -73,6 +96,10 @@ void chassis_task(void const * argument)
 				vx=location_vx*cos(degree)+location_vy*sin(degree);
 				vy=-location_vx*sin(degree)+location_vy*cos(degree);
 			}
+			if(rc_device_get_state(&rc, RC_S2_DOWN2MID)){//S2ÎªDOWN2MID£¬È¡ÏûĞ¡ÍÓÂİ£¬ÈÔÈ»½ÓÊÕÒ£¿ØÆ÷Êı¾İ
+				if(degree<0.1&&degree>-0.1)  wz=2000;			//µ±×ªµ½Ç¹¹ÜÓë³µÉíÆ½ĞĞÊ±£¬Í£Ö¹Ğı×ª
+				else wz=0;
+			}
 	chassis_set_speed(vx,vy,wz);
 	chassis_execute();
 	osDelayUntil(&period, 2);		
@@ -85,6 +112,14 @@ void chassis_set_speed(float vx_mmps,float vy_mmps,float wz_degps) //Õâ¾ÍÊÇ°ÑµÃµ
 	pchassis->yv_mm_s=vy_mmps;
 	pchassis->zw_deg_s=wz_degps; 	
 }
+
+/**
+    * @brief  ÓÃÓÚPID¿ØÖÆ
+    * @note   None
+    * @author ÖÜÉ­V(1),ÖÓÎç½ÜV(2)
+    * @param  None
+    * @retval None
+    */
 void chassis_execute()//µ×ÅÌ¿ØÖÆ
 {
 	mecanum_calculate();	//µ×ÅÌËÙ¶È·Ö½âµ½ËÄ¸öÂÖ×ÓÉÏ
@@ -96,6 +131,13 @@ void chassis_execute()//µ×ÅÌ¿ØÖÆ
   //Í¨¹ıPID×ª»¯ÎªµçÑ¹Êä³ö
 }
 
+/**
+    * @brief  ÓÃÓÚÂó¿ËÄÈÄ·ÂÖËÙ¶È·Ö½â
+    * @note   None
+    * @author ÖÓÎç½Ü
+    * @param  None
+    * @retval None
+    */
 void mecanum_calculate(void)//µ×ÅÌËÙ¶È·Ö½âµ½ËÄ¸öÂÖ×ÓÉÏ	
 {
 	static float rotate_ratio_fr;//Ç°ÓÒÂÖ×ªËÙ 
@@ -145,12 +187,19 @@ void mecanum_calculate(void)//µ×ÅÌËÙ¶È·Ö½âµ½ËÄ¸öÂÖ×ÓÉÏ
 	pchassis->wheel_rpm[3]=wheel_rpm[3];	
 }
 
+/**
+    * @brief  ÓÃÓÚÍ¨¹ıÂó¿ËÄÈÄ·ÂÖ¼ÆËãÆ«×ª½Ç
+    * @note   None
+    * @author ÖÓÎç½Ü
+    * @param  None
+    * @retval None
+    */
 float calculate_the_degree(void )
 {
 	float degree;
 	float radio;
 	radio=(pchassis->wheelbase + pchassis->wheeltrack) / 2.0f ;
-	degree =(motor_info[0].all_angle-motor_info[1].all_angle-motor_info[2].all_angle+motor_info[3].all_angle)*360/(radio*8191);
+	degree =(motor_info[1].all_angle-motor_info[3].all_angle)*360/(radio*8191);
 	//¼ÆËãÆ«×ª½Ç²¢×ª»¯Îª½Ç¶È
 	while(degree>360) degree-=360;
 	while(degree<-360) degree-=360;

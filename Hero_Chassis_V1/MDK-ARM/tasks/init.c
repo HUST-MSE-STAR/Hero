@@ -1,3 +1,13 @@
+/* 
+ * init.c-初始化文件
+ * NOTE: This file is based on HAL library of stm32 platform
+ *
+ * Copyright (c) 2020-, FOSH Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Change Logs:None
+ */
 #include "bsp_can.h"
 #include "pid.h"
 #include "bsp_dbus.h"
@@ -8,6 +18,8 @@
 #include "chassis_task.h"
 #include "communication_task.h"
 #include "init.h"
+
+/*用于系统初始化*/
 void hw_init(void)
 {
 
@@ -21,6 +33,7 @@ osThreadId chassis_taskhandle;
 osThreadId CommunicationToReferee_taskhandle;
 osThreadId CommunicationToGimbal_taskhandle;
 
+/*用于初始化任务*/
 void task_init(void)//现在分配的空间只够创建6个任务
 {
   osThreadDef(CHASSIS_TASK, chassis_task, osPriorityNormal, 0, 512);

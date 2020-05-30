@@ -1,6 +1,5 @@
---cpu=Cortex-M4.fp.sp
+--cpu Cortex-M4.fp
 "hero_gimbal_v1\startup_stm32f407xx.o"
-"hero_gimbal_v1\main.o"
 "hero_gimbal_v1\gpio.o"
 "hero_gimbal_v1\can.o"
 "hero_gimbal_v1\dma.o"
@@ -10,6 +9,7 @@
 "hero_gimbal_v1\usart.o"
 "hero_gimbal_v1\stm32f4xx_it.o"
 "hero_gimbal_v1\stm32f4xx_hal_msp.o"
+"hero_gimbal_v1\main.o"
 "hero_gimbal_v1\stm32f4xx_hal_can.o"
 "hero_gimbal_v1\stm32f4xx_hal_rcc.o"
 "hero_gimbal_v1\stm32f4xx_hal_rcc_ex.o"
@@ -47,6 +47,6 @@
 "hero_gimbal_v1\bsp_referee.o"
 "hero_gimbal_v1\pid.o"
 --library_type=microlib --strict --scatter "Hero_Gimbal_V1\Hero_Gimbal_V1.sct"
---summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "Hero_Gimbal_V1.map" -o Hero_Gimbal_V1\Hero_Gimbal_V1.axf

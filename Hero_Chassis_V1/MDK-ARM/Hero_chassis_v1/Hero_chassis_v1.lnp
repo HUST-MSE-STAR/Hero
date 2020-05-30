@@ -1,6 +1,5 @@
---cpu=Cortex-M4.fp.sp
+--cpu Cortex-M4.fp
 "hero_chassis_v1\startup_stm32f334x8.o"
-"hero_chassis_v1\main.o"
 "hero_chassis_v1\gpio.o"
 "hero_chassis_v1\can.o"
 "hero_chassis_v1\dma.o"
@@ -10,6 +9,7 @@
 "hero_chassis_v1\usart.o"
 "hero_chassis_v1\stm32f3xx_it.o"
 "hero_chassis_v1\stm32f3xx_hal_msp.o"
+"hero_chassis_v1\main.o"
 "hero_chassis_v1\stm32f3xx_hal_can.o"
 "hero_chassis_v1\stm32f3xx_hal.o"
 "hero_chassis_v1\stm32f3xx_hal_rcc.o"
@@ -48,6 +48,6 @@
 "hero_chassis_v1\communication_task.o"
 "hero_chassis_v1\bullet_task.o"
 --library_type=microlib --strict --scatter "Hero_chassis_v1\Hero_chassis_v1.sct"
---summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "Hero_chassis_v1.map" -o Hero_chassis_v1\Hero_chassis_v1.axf

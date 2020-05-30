@@ -1,3 +1,12 @@
+/* 
+ * chassis_task.c-通信相关文件
+ * NOTE: 包括串口通信解析以及与底盘控制板的通信
+ *
+ * Copyright (c) 2020-, FOSH Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * C*/
 #include "string.h"
 #include "stdlib.h"
 #include "communication_task.h"
@@ -11,6 +20,14 @@
 #include "bsp_can.h"
 #include "bsp_dbus.h"
 extern uint8_t 	PC_buf[PC_BUFLEN] ;
+
+/**
+    * @brief  将yaw,pitch角度存入pgimbal结构体中
+    * @note   None
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void calc_rev_buff(void )//云台的接收函数
 {
 	
@@ -19,6 +36,13 @@ void calc_rev_buff(void )//云台的接收函数
 	
 }
 
+/**
+    * @brief  用于和PC的通信
+    * @note   None
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void Communication_To_Pc_Task(void const * argument)//把裁判系统的信息传给PC
 {
 	uint32_t period = osKernelSysTick();
@@ -30,6 +54,13 @@ void Communication_To_Pc_Task(void const * argument)//把裁判系统的信息传给PC
 	}
 }
 
+/**
+    * @brief  用于和底盘的通信
+    * @note   None
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void Communication_To_Chasis_Task(void const * argument)//把遥控信息传给底盘
 {
 	uint32_t period = osKernelSysTick();

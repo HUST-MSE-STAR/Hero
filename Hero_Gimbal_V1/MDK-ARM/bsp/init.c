@@ -1,3 +1,13 @@
+/* 
+ * init.c-初始化文件
+ * NOTE: This file is based on HAL library of stm32 platform
+ *
+ * Copyright (c) 2020-, FOSH Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Change Logs:None
+ */
 #include "bsp_can.h"
 #include "pid.h"
 #include "bsp_dbus.h"
@@ -6,6 +16,13 @@
 #include "communication_task.h"
 #include "shoot_task.h"
 
+/**
+    * @brief  用于can和debus初始化
+    * @note   None
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void hw_init(void)
 {
 
@@ -22,7 +39,13 @@ osThreadId communication_to_chasis_taskhandle;
 osThreadId shoot_taskhandle;
 
 
-
+/**
+    * @brief  用于task创建和初始化
+    * @note   None
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void task_init(void)
 {
 	osThreadDef(GIMBAL_TASK, gimbal_task, osPriorityNormal, 0, 512);

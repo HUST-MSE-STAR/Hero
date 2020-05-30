@@ -67,7 +67,7 @@ void chassis_task(void const * argument);
 void chassis_set_speed(float vx_mmps,float vy_mmps,float wz_degps);
 void chassis_set_acc(float vx_mmps_acc,float vy_mmps_acc,float wz_degps_acc);
 void chassis_set_offset(float offset_x, float offset_y);
-void chassis_execute();//底盘控制
+void chassis_execute(void);//底盘控制
 void mecanum_calculate(void);//底盘速度分解到四个轮子上
 float calculate_the_degree(void );//计算坐标系偏转角
 

@@ -1,3 +1,12 @@
+/* 
+ * bullet_task.c-拨弹相关文件
+ * NOTE: 用于拨弹控制
+ *
+ * Copyright (c) 2020-, FOSH Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * C*/
 #include "bullet_task.h"
 #include "cmsis_os.h"
 #include "bsp_dbus.h"
@@ -9,6 +18,13 @@ int32_t shoot_cnt = 0,first_angle=0;
 pid_struct_t shoot_pid;//拨盘位置环PID
 int8_t shoot_begin=0,shoot_once=0,shoot_continue=0;
 uint32_t shoot_mode_check=0;
+/**
+    * @brief  用于拨弹电机的初始化
+    * @note   None
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void shoot_init(shoot_t pshoot)//三个电机的速度环
 {
 
@@ -18,6 +34,13 @@ void shoot_init(shoot_t pshoot)//三个电机的速度环
 	pshoot->turn_angle=turn_angle_delta;
 
 }
+/**
+    * @brief  用于拨弹的控制
+    * @note   由S1来控制,每2s发射一发
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void Bullet_Task(void const * argument)//拨弹任务
 {
 	uint32_t period = osKernelSysTick();
@@ -75,6 +98,13 @@ void Bullet_Task(void const * argument)//拨弹任务
 	osDelayUntil(&period, 5);
 }
 	}
+/**
+    * @brief  用于拨弹电机控制
+    * @note   PID速度环
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void bullet_control(shoot_t pshoot) 
 {
 	int id_range=0;//3508或2006的电机
@@ -82,7 +112,13 @@ void bullet_control(shoot_t pshoot)
   set_motor_voltage(id_range,motor_info[4].set_voltage,0,0,0);
 		
 }
-
+/**
+    * @brief  用于堵转检测
+    * @note   若检测到电流过大，则发现堵转，通过反向旋转来消除堵转
+    * @author 钟午杰
+    * @param  None
+    * @retval None
+    */
 void bullet_block_check(shoot_t pshoot)	
 {
   static uint8_t first_block = 0;		//开始堵转标识
